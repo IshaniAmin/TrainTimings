@@ -1,0 +1,49 @@
+
+* {
+	box-sizing: border-box;
+}
+
+
+#header {
+	font-size: 50px;
+	text-align: center;
+	background-color: #CC5E76;
+	color: white;
+	padding: 20px;
+	font-family: 'PT Sans', sans-serif;
+}
+
+#trainTimingHeader {
+	font-size: 20px;
+	background-color: #ED92A6;
+	color: white;
+	font-family: 'PT Sans', sans-serif;
+
+}
+
+#table {
+	clear: both;
+	padding: 20px;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 15px;
+}
+
+th {
+	font-weight: bold;
+}
+
+#formHeader {
+	font-size: 20px;
+	background-color: #ED92A6;
+	color: white;
+	font-family: 'PT Sans', sans-serif;
+}
+
+#submitForm {
+	margin-top: 20px;
+}
+
+#formSub {
+	font-size: 15px;
+	font-family: 'PT Sans', sans-serif;
+}
