@@ -20,7 +20,7 @@ var firstTime = "";
 var nextArival = "";
 var minAway = "";
 
-$("button").on("click", function() {
+$("#searchBtn").on("click", function() {
 
 
     //captures what is typed in form into a variable
@@ -31,10 +31,10 @@ $("button").on("click", function() {
 	// nextArival = 
 	// minAway = 
 
-	console.log(trainName);
-	console.log(destination)
-	console.log(firstTime);
-	console.log(frequency);
+	// console.log(trainName);
+	// console.log(destination)
+	// console.log(firstTime);
+	// console.log(frequency);
 
 
 	//Pushing code into Database
@@ -49,9 +49,9 @@ $("button").on("click", function() {
     //clears form
     trainName = $("#trainName").val("");
     destination = $("#destination").val("");
-    firstTime = $("#firstTime").val("");
     frequency = $("#frequency").val("");
-
+    firstTime = $("#firstTime").val("");
+    
 	return false;
 
 });
@@ -60,19 +60,28 @@ $("button").on("click", function() {
 
 database.ref().on("child_added", function(childSnapshot) {
 
-	console.log(childSnapshot.val().trainName);
-    console.log(childSnapshot.val().destination);
-    console.log(childSnapshot.val().firstTime);
-    console.log(childSnapshot.val().frequency);
-    console.log(childSnapshot.val().dateAdded);
+	// console.log(childSnapshot.val().trainName);
+ //    console.log(childSnapshot.val().destination);
+ //    console.log(childSnapshot.val().firstTime);
+ //    console.log(childSnapshot.val().frequency);
+ //    console.log(childSnapshot.val().dateAdded);
 
-    $("#table").append("<tr> <td>" + childSnapshot.val().trainName + " </td> <td> " + childSnapshot.val().destination + "</td> <td>" + childSnapshot.val().frequency + " </td> <td> Next Arival </td> <td>Minutes Away </td> </tr>");
+    $("#table").append("<tr> <td>" + childSnapshot.val().trainName + " </td> <td> " + childSnapshot.val().destination + "</td> <td>" + childSnapshot.val().frequency + " </td> <td>" + childSnapshot.val().firstTime + "</td> <td>Minutes Away </td> </tr>");
 
     // Handle the errors
     }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
     });
 
+
+$("#clearBtn").on("click", function() {
+
+    trainName = $("#trainName").val("");
+    destination = $("#destination").val("");
+    frequency = $("#frequency").val("");
+    firstTime = $("#firstTime").val("");
+
+});
 
 
 
