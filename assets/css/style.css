@@ -1,4 +1,7 @@
 
+/*color palette: http://paletton.com/#uid=15u0u0khirF7mJLckxtlHmYqlik*/
+
+
 * {
 	box-sizing: border-box;
 }
@@ -19,6 +22,10 @@
 	color: white;
 	font-family: 'PT Sans', sans-serif;
 
+}
+
+tr th {
+	font-weight: bold;
 }
 
 #table {
