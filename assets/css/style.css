@@ -1,16 +1,23 @@
 
-/*color palette: http://paletton.com/#uid=15u0u0khirF7mJLckxtlHmYqlik*/
+/*color palette: http://paletton.com/#uid=14a0u0kahdT6FoJ8YjufAanlo8Y*/
 
 
 * {
 	box-sizing: border-box;
+	border: 2px solid #6E6D70;
+	opacity: 1;
+}
+
+body {
+	background-image: url("../../train-back.jpeg");
+	background-size: 100% 100%;
 }
 
 
 #header {
 	font-size: 50px;
 	text-align: center;
-	background-color: #CC5E76;
+	background-color: #2D2D2F;
 	color: white;
 	padding: 20px;
 	font-family: 'PT Sans', sans-serif;
@@ -18,7 +25,7 @@
 
 #trainTimingHeader {
 	font-size: 20px;
-	background-color: #ED92A6;
+	background-color: #2D2D2F;
 	color: white;
 	font-family: 'PT Sans', sans-serif;
 
@@ -33,6 +40,7 @@ tr th {
 	padding: 20px;
 	font-family: 'PT Sans', sans-serif;
 	font-size: 15px;
+	background-color: #8F8F92;
 }
 
 th {
@@ -41,13 +49,14 @@ th {
 
 #formHeader {
 	font-size: 20px;
-	background-color: #ED92A6;
+	background-color: #2D2D2F;
 	color: white;
 	font-family: 'PT Sans', sans-serif;
 }
 
 #submitForm {
 	margin-top: 20px;
+	background-color: #8F8F92;
 }
 
 #formSub {

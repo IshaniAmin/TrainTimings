@@ -16,9 +16,10 @@ var database = firebase.database();
 var trainName = "";
 var destination = "";
 var frequency = "";
-var firstTime = "";
-var nextArival = "";
-var minAway = "";
+var firstTrain = "";
+var timeUsed = "";
+var timeNow = "";
+
 
 $("#searchBtn").on("click", function() {
 
@@ -26,31 +27,52 @@ $("#searchBtn").on("click", function() {
     //captures what is typed in form into a variable
 	trainName = $("#trainName").val().trim();
 	destination = $("#destination").val().trim();
-	firstTime = $("#firstTime").val().trim();
+	firstTrain = $("#firstTrain").val().trim();
 	frequency = $("#frequency").val().trim();
-	// nextArival = 
-	// minAway = 
 
-	// console.log(trainName);
-	// console.log(destination)
-	// console.log(firstTime);
-	// console.log(frequency);
+    // First Train Time (pushed back 1 year to make sure it comes before current time)
+    var firstTimeConverted = moment(firstTrain, "hh:mm").subtract(1, "years");
+        console.log(firstTimeConverted);
 
+    // Current Time
+    var currentTime = moment();
+        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
-	//Pushing code into Database
-	database.ref().push({
+    // Difference between the times
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        console.log("DIFFERENCE IN TIME: " + diffTime);
+
+    // Time apart (remainder)
+    var tRemainder = diffTime % frequency;
+        console.log(tRemainder);
+
+    // Minute Until Train
+    var tMinutesTillTrain = frequency - tRemainder;
+        console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+    // Next Train
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    var train = moment(nextTrain).format("hh:mm")
+        console.log("ARRIVAL TIME: " + train);
+
+    //Pushing code into Database
+    database.ref().push({
         trainName: trainName,
         destination: destination,
-        firstTime: firstTime,
-        frequency: frequency,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
+        firstTrain: firstTrain.toString(),
+        frequency: frequency.toString(),
+        dateAdded: firebase.database.ServerValue.TIMESTAMP,
+        train: train.toString(),
+        tMinutesTillTrain: tMinutesTillTrain.toString()
     });
 
+
     //clears form
-    trainName = $("#trainName").val("");
-    destination = $("#destination").val("");
-    frequency = $("#frequency").val("");
-    firstTime = $("#firstTime").val("");
+    $("#trainName").val("");
+    $("#destination").val("");
+    $("#frequency").val("");
+    $("#firstTrain").val("");
+
     
 	return false;
 
@@ -60,13 +82,15 @@ $("#searchBtn").on("click", function() {
 
 database.ref().on("child_added", function(childSnapshot) {
 
-	// console.log(childSnapshot.val().trainName);
- //    console.log(childSnapshot.val().destination);
- //    console.log(childSnapshot.val().firstTime);
- //    console.log(childSnapshot.val().frequency);
- //    console.log(childSnapshot.val().dateAdded);
+    console.log(childSnapshot.val().trainName);
+    console.log(childSnapshot.val().destination);
+    console.log(childSnapshot.val().firstTrain);
+    console.log(childSnapshot.val().frequency);
+    // console.log(childSnapshot.val().dateAdded);
+    console.log(childSnapshot.val().tMinutesTillTrain);
+    console.log(childSnapshot.val().nextTrain);
 
-    $("#table").append("<tr> <td>" + childSnapshot.val().trainName + " </td> <td> " + childSnapshot.val().destination + "</td> <td>" + childSnapshot.val().frequency + " </td> <td>" + childSnapshot.val().firstTime + "</td> <td>Minutes Away </td> </tr>");
+    $("#table").append("<tr> <td>" + childSnapshot.val().trainName + " </td> <td> " + childSnapshot.val().destination + "</td> <td>" + childSnapshot.val().frequency + " </td> <td>" + childSnapshot.val().train + "</td> <td> " + childSnapshot.val().tMinutesTillTrain + "</td> </tr>");
 
     // Handle the errors
     }, function(errorObject) {
@@ -74,12 +98,16 @@ database.ref().on("child_added", function(childSnapshot) {
     });
 
 
+
+//clears form when clean button is clicked
 $("#clearBtn").on("click", function() {
 
     trainName = $("#trainName").val("");
     destination = $("#destination").val("");
     frequency = $("#frequency").val("");
-    firstTime = $("#firstTime").val("");
+    firstTrain = $("#firstTrain").val("");
+
+    return false;
 
 });
 

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+  <head>
+
+    <meta charset="UTF-8">
+
+    <title>Example of Time Telling</title>
+
+    <!-- Added Moment JS -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Script -->
+
+    <script>
+
+
+6:07 AM first train
+every 30 minutes is a new train 
+
+6:07 AM, 6:37 AM, 7:07 AM, 7:37 AM, 8:07 AM is the train schedule 
+
+it is now 7:52 AM, you are waiting at the train station - how long do you have to wait for a train to come?
+
+next train is coming in 15 minutes
+
+52 - 07 = 45 minutes since the first train (regardless of the hour)
+45 minutes away from the first train % 30 (every this many minutes a train comes) = 15
+
+
+
+// write a function to tell me if a number is greater than 10 or not 
+
+// 15 -> true  
+// 10 -> false 
+// 5 -> false 
+
+// function greatTen(n){
+//   if (n > 10) return true;
+//     else return false;
+// }
+
+
+      // Assume the following situations.
+
+      // (TEST 1)
+      // First Train of the Day is 3:00 AM
+      // Assume Train comes every 3 minutes.
+      // Assume the current time is 3:16 AM....
+      // What time would the next train be...? (Use your brain first)
+      // It would be 3:18 -- 2 minutes away
+
+3:16 
+the next train is 2 minutes away
+
+3 am, 3 03, 306, 309, 312, 315, 318
+
+if it's currently 3:16 the next train is still 3:18 
+
+
+      // (TEST 2)
+      // First Train of the Day is 3:00 AM
+      // Assume Train comes every 7 minutes.
+      // Assume the current time is 3:16 AM....
+      // What time would the next train be...? (Use your brain first)
+      // It would be 3:21 -- 5 minutes away
+
+      16-00 = 16
+      16 % 7 = 2
+      7 - 2 = 5
+
+3 am, 3 07, 3 14, 3 21, 328, 3 35
+
+
+
+
+      // ==========================================================
+
+      // Solved Mathematically
+      // Test case 1:
+      // 16 - 00 = 16
+      // 16 % 3 = 1 (Modulus is the remainder)
+      // 3 - 1 = 2 minutes away
+      // 2 + 3:16 = 3:18
+
+      // Solved Mathematically
+      // Test case 2:
+      // 16 - 00 = 16
+      // 16 % 7 = 2 (Modulus is the remainder)
+      // 7 - 2 = 5 minutes away
+      // 5 + 3:16 = 3:21
+
+      // Assumptions
+      var tFrequency = 3;
+
+      // Time is 3:30 AM
+      var firstTime = "03:30";
+
+      // First Time (pushed back 1 year to make sure it comes before current time)
+      var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
+      console.log(firstTimeConverted);
+
+      // Current Time
+      var currentTime = moment();
+      console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+      // Difference between the times
+      var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+      console.log("DIFFERENCE IN TIME: " + diffTime);
+
+      // Time apart (remainder)
+      var tRemainder = diffTime % tFrequency;
+      console.log(tRemainder);
+
+      // Minute Until Train
+      var tMinutesTillTrain = tFrequency - tRemainder;
+      console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+      // Next Train
+      var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+      console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
+    </script>
+
+  </body>
+
+</html>
